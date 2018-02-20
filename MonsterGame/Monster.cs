@@ -29,7 +29,8 @@ namespace MonsterGame
         public static void Encounter()
         {
             Type type = (Type)rnd.Next(1, 5);
-            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("A monster appeared!");
 
             if (type == Type.Monster1)
             {
@@ -110,8 +111,12 @@ namespace MonsterGame
 
         private static void PlayerAttack()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(new string('-', 20));
             Console.WriteLine("Monster:\nHp: {0}\nDmg: {1}", hp, dmg);
+            Console.WriteLine(new string('-', 20));
             Console.WriteLine("Hero:\nHp: {0}\nDmg: {1}", Hero.Hp, Hero.Dmg);
+            Console.WriteLine(new string('-', 20));
 
             letter = GetLetter();
             inputString = Console.ReadLine();
