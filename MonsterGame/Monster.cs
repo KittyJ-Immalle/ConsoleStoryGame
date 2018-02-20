@@ -12,6 +12,10 @@ namespace MonsterGame
         static int hp;
         static int dmg;
         static bool tick;
+        static char letter;
+        static string inputString;
+        static char inputChar;
+        static bool res;
 
         enum Type
         {
@@ -52,11 +56,15 @@ namespace MonsterGame
                 Level5();
             }
 
-            while (hp <= 0)
+            while (hp >= 0)
             {
+                
+
                 if (tick)
                 {
+                    
                     PlayerAttack();
+                    
                 } else
                 {
                     MonsterAttack();
@@ -103,12 +111,28 @@ namespace MonsterGame
         private static void PlayerAttack()
         {
             Console.WriteLine("Monster:\nHp: {0}\nDmg: {1}", hp, dmg);
+            Console.WriteLine("Hero:\nHp: {0}\nDmg: {1}", Hero.Hp, Hero.Dmg);
 
+            letter = GetLetter();
+            inputString = Console.ReadLine();
+            res = char.TryParse(inputString, out inputChar);
+            if (letter == inputChar)
+            {
+                hp -= Hero.Dmg;
+                Console.WriteLine("You attacked and did {0}!", Hero.Dmg);
+            }
         }
 
         private static void MonsterAttack()
         {
 
+        }
+
+        public static char GetLetter()
+        {
+            int num = rnd.Next(0, 26);
+            char let = (char)('a' + num);
+            return let;
         }
     }
 }
