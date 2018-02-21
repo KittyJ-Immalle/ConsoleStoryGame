@@ -8,9 +8,9 @@ namespace MonsterGame
 {
     class Monster
     {
+        static int Hp { get; set; }
+        static int Dmg { get; set; }
         static Random rnd = new Random();
-        static int hp;
-        static int dmg;
         static bool tick;
         static char letter;
         static string inputString;
@@ -26,7 +26,52 @@ namespace MonsterGame
             Monster5
         };
 
-        public static void Encounter()
+        public static void Encounter(Player player)
+        {
+            SelectMonster();
+
+            while (Monster.Hp >= 0)
+            {
+
+                if (!tick)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("What would you like to do?");
+                    letter = GetLetter();
+                    Console.WriteLine(letter + ": Attack");
+                    Console.WriteLine("z: Run away (" + player.RunAway + ")");
+                    inputString = Console.ReadLine();
+                    res = char.TryParse(inputString, out inputChar);
+                    if (letter == inputChar)
+                    {
+                        PlayerAttack(player);
+                    } else if (inputChar == 'z')
+                    {
+                        if (player.RunAway > 0)
+                        {
+                            Console.WriteLine("You ran away.");
+                            player.RunAway--;
+                            return;
+                        } else
+                        {
+                            Console.WriteLine("You're too tired to run away.");
+                        }
+                    } else
+                    {
+                        Console.WriteLine("You missed.");
+                    }
+                    
+                    
+                } else
+                {
+                    MonsterAttack(player);
+                    Stats(player);
+                }
+                tick = !tick;
+            }
+        }
+
+        private static void SelectMonster()
         {
             Type type = (Type)rnd.Next(1, 5);
             Console.ForegroundColor = ConsoleColor.Red;
@@ -35,102 +80,84 @@ namespace MonsterGame
             if (type == Type.Monster1)
             {
                 Console.WriteLine("Monster lvl1");
-                Level1();
-            } else if (type == Type.Monster2)
+                SelectLevel(1);
+            }
+            else if (type == Type.Monster2)
             {
                 Console.WriteLine("Monster lvl2");
-                Level2();
+                SelectLevel(2);
             }
             else if (type == Type.Monster3)
             {
                 Console.WriteLine("Monster lvl3");
-                Level3();
+                SelectLevel(3);
             }
             else if (type == Type.Monster4)
             {
                 Console.WriteLine("Monster lvl4");
-                Level4();
+                SelectLevel(4);
             }
             else if (type == Type.Monster5)
             {
                 Console.WriteLine("Monster lvl5 (Watch out! This one's dangerous!)");
-                Level5();
+                SelectLevel(5);
             }
+        }
 
-            while (hp >= 0)
+        private static void SelectLevel(int level)
+        {
+            switch (level)
             {
-                
-
-                if (tick)
-                {
-                    
-                    PlayerAttack();
-                    
-                } else
-                {
-                    MonsterAttack();
-                }
-                tick = !tick;
+                case 1:
+                    Monster.Hp = 50;
+                    Monster.Dmg = 2;
+                    Console.WriteLine("Grr..");
+                    break;
+                case 2:
+                    Monster.Hp = 60;
+                    Monster.Dmg = 5;
+                    Console.WriteLine("Hgggrr..");
+                    break;
+                case 3:
+                    Monster.Hp = 75;
+                    Monster.Dmg = 10;
+                    Console.WriteLine("GGruuaagh..");
+                    break;
+                case 4:
+                    Monster.Hp = 100;
+                    Monster.Dmg = 15;
+                    Console.WriteLine("Mggrruuaaghhr..");
+                    break;
+                case 5:
+                    Monster.Hp = 150;
+                    Monster.Dmg = 15;
+                    Console.WriteLine("GGRRUAAGHHH..");
+                    break;
             }
         }
 
-        private static void Level1()
+        private static void PlayerAttack(Player player)
         {
-            hp = 50;
-            dmg = 2;
-            Console.WriteLine("Grr..");
+            Monster.Hp -= player.Dmg;
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("You attacked and did {0} damage!", player.Dmg);
         }
 
-        private static void Level2()
+        private static void MonsterAttack(Player player)
         {
-            hp = 60;
-            dmg = 5;
-            Console.WriteLine("Hgggrr..");
+            player.Hp -= Monster.Dmg;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("The monster attacked and did {0} damage!", Monster.Dmg);
         }
 
-        private static void Level3()
-        {
-            hp = 75;
-            dmg = 10;
-            Console.WriteLine("GGruuaagh..");
-        }
-
-        private static void Level4()
-        {
-            hp = 100;
-            dmg = 15;
-            Console.WriteLine("Mggrruuaaghhr..");
-        }
-
-        private static void Level5()
-        {
-            hp = 150;
-            dmg = 15;
-            Console.WriteLine("GGRRUAAGHHH..");
-        }
-
-        private static void PlayerAttack()
+        private static void Stats(Player player)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(new string('-', 20));
-            Console.WriteLine("Monster:\nHp: {0}\nDmg: {1}", hp, dmg);
+            Console.WriteLine("Monster:\nHp: {0}\nDmg: {1}", Monster.Hp, Monster.Dmg);
             Console.WriteLine(new string('-', 20));
-            Console.WriteLine("Hero:\nHp: {0}\nDmg: {1}", Hero.Hp, Hero.Dmg);
+            Console.WriteLine("Player:\nHp: {0}\nDmg: {1}", player.Hp, player.Dmg);
             Console.WriteLine(new string('-', 20));
-
-            letter = GetLetter();
-            inputString = Console.ReadLine();
-            res = char.TryParse(inputString, out inputChar);
-            if (letter == inputChar)
-            {
-                hp -= Hero.Dmg;
-                Console.WriteLine("You attacked and did {0}!", Hero.Dmg);
-            }
-        }
-
-        private static void MonsterAttack()
-        {
-
         }
 
         public static char GetLetter()
