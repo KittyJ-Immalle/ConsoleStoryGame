@@ -41,7 +41,7 @@ namespace MonsterGame
             input = Convert.ToBoolean(Console.ReadLine());
         }
 
-        static void Investigate()
+        static void Investigate(Player player)
         {
             string nothing = "You found nothing!";
             int find;
@@ -50,7 +50,7 @@ namespace MonsterGame
                 find = rnd.Next(1, 4);
                 if (find == 1)
                 {
-                    Monster.Encounter();
+                    Monster.Encounter(player);
                 } else if (find == 2)
                 {
                     Item.Find();
