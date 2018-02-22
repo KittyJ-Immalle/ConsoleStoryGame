@@ -10,7 +10,7 @@ namespace MonsterGame
     {
         private static string input;
 
-        public static void Welcome(Player player)
+        public static void Welcome()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Hello? Are you awake?");
@@ -47,9 +47,9 @@ namespace MonsterGame
                 {
                     Console.WriteLine("Hm?");
                 }
-                Map.Navigate(player);
             }
             
+
         }
 
         public static void Enter()

@@ -27,7 +27,7 @@ namespace MonsterGame
             Monster5
         };
 
-        public static void Encounter(Player player, Type monster = Type.Default)
+        public static void Encounter(Type monster = Type.Default)
         {
             if (monster == Type.Default)
             {
@@ -46,18 +46,18 @@ namespace MonsterGame
                     Console.WriteLine("What would you like to do?");
                     letter = GetLetter();
                     Console.WriteLine(letter + ": Attack");
-                    Console.WriteLine("z: Run away (" + player.RunAway + ")");
+                    Console.WriteLine("z: Run away (" + Player.RunAway + ")");
                     inputString = Console.ReadLine();
                     res = char.TryParse(inputString, out inputChar);
                     if (letter == inputChar)
                     {
-                        PlayerAttack(player);
+                        PlayerAttack();
                     } else if (inputChar == 'z')
                     {
-                        if (player.RunAway > 0)
+                        if (Player.RunAway > 0)
                         {
                             Console.WriteLine("You ran away.");
-                            player.RunAway--;
+                            Player.RunAway--;
                             return;
                         } else
                         {
@@ -71,8 +71,8 @@ namespace MonsterGame
                     
                 } else
                 {
-                    MonsterAttack(player);
-                    Stats(player);
+                    MonsterAttack();
+                    Stats();
                 }
                 tick = !tick;
             }
@@ -143,27 +143,27 @@ namespace MonsterGame
             }
         }
 
-        private static void PlayerAttack(Player player)
+        private static void PlayerAttack()
         {
-            Monster.Hp -= player.Dmg;
+            Monster.Hp -= Player.Dmg;
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("You attacked and did {0} damage!", player.Dmg);
+            Console.WriteLine("You attacked and did {0} damage!", Player.Dmg);
         }
 
-        private static void MonsterAttack(Player player)
+        private static void MonsterAttack()
         {
-            player.Hp -= Monster.Dmg;
+            Player.Hp -= Monster.Dmg;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("The monster attacked and did {0} damage!", Monster.Dmg);
         }
 
-        private static void Stats(Player player)
+        private static void Stats()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(new string('-', 20));
             Console.WriteLine("Monster:\nHp: {0}\nDmg: {1}", Monster.Hp, Monster.Dmg);
             Console.WriteLine(new string('-', 20));
-            Console.WriteLine("Player:\nHp: {0}\nDmg: {1}", player.Hp, player.Dmg);
+            Console.WriteLine("Player:\nHp: {0}\nDmg: {1}", Player.Hp, Player.Dmg);
             Console.WriteLine(new string('-', 20));
         }
 

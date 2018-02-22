@@ -11,12 +11,12 @@ namespace MonsterGame
         static void Main(string[] args)
         {
             string input;
-            Player player = new Player();
+            
 
-            player.Hp = 100;
-            player.Dmg = 10;
-            player.RunAway = 5;
-            player.Room = "Bedroom";
+            Player.Hp = 100;
+            Player.Dmg = 10;
+            Player.RunAway = 5;
+            Player.Room = "bedroom";
             
             
             Console.WriteLine("Press ENTER to continue dialogue. | Type 'skip' to skip the dialogue.");
@@ -25,7 +25,7 @@ namespace MonsterGame
             {
                 if (input == "")
                 {
-                    Dialogue.Welcome(player);
+                    Dialogue.Welcome();
                     break;
                 }
                 else if (input == "skip")
@@ -37,7 +37,11 @@ namespace MonsterGame
                     Console.WriteLine("Not a valid answer");
                 }
             }
-
+            while (true)
+            {
+                Map.Navigate();
+            }
+            
         }
     }
 }

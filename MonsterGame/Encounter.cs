@@ -51,7 +51,7 @@ namespace MonsterGame
                 find = rnd.Next(1, 4);
                 if (find == 1)
                 {
-                    Monster.Encounter(player);
+                    Monster.Encounter();
                 } else if (find == 2)
                 {
                     Item.Find();
