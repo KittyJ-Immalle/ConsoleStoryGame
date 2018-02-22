@@ -17,8 +17,9 @@ namespace MonsterGame
         static char inputChar;
         static bool res;
 
-        enum Type
+        public enum Type
         {
+            Default,
             Monster1,
             Monster2,
             Monster3,
@@ -26,10 +27,16 @@ namespace MonsterGame
             Monster5
         };
 
-        public static void Encounter(Player player)
+        public static void Encounter(Player player, Type monster = Type.Default)
         {
-            SelectMonster();
-
+            if (monster == Type.Default)
+            {
+                SelectMonster();
+            } else
+            {
+                SelectMonster(monster);
+            }
+            
             while (Monster.Hp >= 0)
             {
 
@@ -71,7 +78,7 @@ namespace MonsterGame
             }
         }
 
-        private static void SelectMonster()
+        private static void SelectMonster(Type monster = Type.Default)
         {
             Type type = (Type)rnd.Next(1, 5);
             Console.ForegroundColor = ConsoleColor.Red;

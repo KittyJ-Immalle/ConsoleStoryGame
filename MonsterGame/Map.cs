@@ -20,7 +20,10 @@ namespace MonsterGame
         public static void Navigate(Player player)
         {
             Console.WriteLine("Right now, you are in the " + player.Room);
-
+            for (int i = 0; i < availableRooms.Count; i++)
+            {
+                Console.WriteLine((i + 1) + availableRooms[i]);
+            }
         }
     }
 }

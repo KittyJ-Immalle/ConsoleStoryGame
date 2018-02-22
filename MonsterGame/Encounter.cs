@@ -39,6 +39,7 @@ namespace MonsterGame
                 Console.WriteLine(encounter3 + "\n" + investigate);
             }
             input = Convert.ToBoolean(Console.ReadLine());
+            
         }
 
         static void Investigate(Player player)

@@ -17,13 +17,15 @@ namespace MonsterGame
             player.Dmg = 10;
             player.RunAway = 5;
             player.Room = "Bedroom";
+            
+            
             Console.WriteLine("Press ENTER to continue dialogue. | Type 'skip' to skip the dialogue.");
             input = Console.ReadLine().ToLower();
             while (true)
             {
                 if (input == "")
                 {
-                    Dialogue.Welcome();
+                    Dialogue.Welcome(player);
                     break;
                 }
                 else if (input == "skip")
