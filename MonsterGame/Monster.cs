@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MonsterGame
 {
-    class Monster
+    class Monster : Creature
     {
-        static int Hp { get; set; }
-        static int Dmg { get; set; }
         static Random rnd = new Random();
         static bool tick;
         static char letter;
@@ -72,7 +70,7 @@ namespace MonsterGame
                 } else
                 {
                     MonsterAttack();
-                    Stats();
+                    Monster.Stats();
                 }
                 tick = !tick;
             }
@@ -155,16 +153,6 @@ namespace MonsterGame
             Player.Hp -= Monster.Dmg;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("The monster attacked and did {0} damage!", Monster.Dmg);
-        }
-
-        private static void Stats()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(new string('-', 20));
-            Console.WriteLine("Monster:\nHp: {0}\nDmg: {1}", Monster.Hp, Monster.Dmg);
-            Console.WriteLine(new string('-', 20));
-            Console.WriteLine("Player:\nHp: {0}\nDmg: {1}", Player.Hp, Player.Dmg);
-            Console.WriteLine(new string('-', 20));
         }
 
         public static char GetLetter()
