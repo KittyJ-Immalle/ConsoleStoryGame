@@ -11,9 +11,11 @@ namespace MonsterGame
         public static void Navigate()
         {
             List<string> availableRooms = SelectRoom();
+
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("You are in the " + Player.Room);
             Console.WriteLine("Where do you want to go to?");
+
             for (int i = 0; i < availableRooms.Count; i++)
             {
                 Console.WriteLine((i + 1) + " " + availableRooms[i]);
@@ -23,18 +25,26 @@ namespace MonsterGame
 
         private static List<string> SelectRoom()
         {
-            List<string> hallway = new List<string>(new string[] { "Bedroom", "Bathroom", "Toilet" });
-            List<string> bedroom = new List<string>(new string[] { "Hallway", "Closet" });
-            List<List<string>> allRooms = new List<List<string>>(new List<string>[] { hallway, bedroom });
-            foreach (List<string> room in allRooms)
+            List<string> rooms = new List<string>();
+            switch (Player.Room)
             {
-                if (nameof(room).Equals(Player.Room))
-                {
-                    return room;
-                    
-                }
+                case "hallway":
+                    rooms.Add("Bedroom");
+                    rooms.Add("Bathroom");
+                    rooms.Add("Toilet");
+                    break;
+                case "bathroom":
+                    rooms.Add("Hallway");
+                    break;
+                case "toilet":
+                    rooms.Add("Hallway");
+                    break;
+                case "bedroom":
+                    rooms.Add("Hallway");
+                    rooms.Add("Closet");
+                    break;
             }
-            return allRooms[0];
+            return rooms;
         }
     }
 }
