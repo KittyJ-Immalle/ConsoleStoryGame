@@ -20,9 +20,9 @@ namespace MonsterGame
             
             
             Console.WriteLine("Press ENTER to continue dialogue. | Type 'skip' to skip the dialogue.");
-            input = Console.ReadLine().ToLower();
             while (true)
             {
+                input = Console.ReadLine().ToLower();
                 if (input == "")
                 {
                     Dialogue.Welcome();
