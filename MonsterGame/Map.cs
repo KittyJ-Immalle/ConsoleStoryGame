@@ -8,11 +8,12 @@ namespace MonsterGame
 {
     class Map
     {
-        static List<string> availableRooms = SelectRoom();
+        static List<string> availableRooms;
 
         public static void Navigate()
         {
-            bool moved;
+            availableRooms = SelectRoom();
+            bool moved = false;
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("You are in the " + Player.Room);
@@ -23,8 +24,11 @@ namespace MonsterGame
                 Console.WriteLine((i + 1) + " " + availableRooms[i]);
             }
 
-            //moved = MoveRoom();
-            
+            if (moved == false)
+            {
+                moved = MoveRoom();
+            }
+            Console.WriteLine("Moved rooms");
         }
 
         private static List<string> SelectRoom()
@@ -32,20 +36,23 @@ namespace MonsterGame
             List<string> rooms = new List<string>();
             switch (Player.Room)
             {
-                case "hallway":
+                case "Hallway":
                     rooms.Add("Bedroom");
                     rooms.Add("Bathroom");
                     rooms.Add("Toilet");
                     break;
-                case "bathroom":
+                case "Bathroom":
                     rooms.Add("Hallway");
                     break;
-                case "toilet":
+                case "Toilet":
                     rooms.Add("Hallway");
                     break;
-                case "bedroom":
+                case "Bedroom":
                     rooms.Add("Hallway");
                     rooms.Add("Closet");
+                    break;
+                case "Closet":
+                    rooms.Add("Bedroom");
                     break;
             }
             return rooms;
@@ -56,9 +63,10 @@ namespace MonsterGame
             int input;
             bool moved = false;
 
+            input = Convert.ToInt32(Console.ReadLine());
+
             for (int i = 0; i < availableRooms.Count; i++)
             {
-                input = Convert.ToInt32(Console.ReadLine());
                 if (input == (i + 1))
                 {
                     Player.Room = availableRooms[i];

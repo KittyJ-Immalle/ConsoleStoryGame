@@ -16,7 +16,7 @@ namespace MonsterGame
             Player.Hp = 100;
             Player.Dmg = 10;
             Player.RunAway = 5;
-            Player.Room = "bedroom";
+            Player.Room = "Bedroom";
             
             
             Console.WriteLine("Press ENTER to continue dialogue. | Type 'skip' to skip the dialogue.");
