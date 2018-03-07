@@ -8,9 +8,11 @@ namespace MonsterGame
 {
     class Map
     {
+        static List<string> availableRooms = SelectRoom();
+
         public static void Navigate()
         {
-            List<string> availableRooms = SelectRoom();
+            bool moved;
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("You are in the " + Player.Room);
@@ -20,7 +22,9 @@ namespace MonsterGame
             {
                 Console.WriteLine((i + 1) + " " + availableRooms[i]);
             }
-            Console.ReadLine();
+
+            //moved = MoveRoom();
+            
         }
 
         private static List<string> SelectRoom()
@@ -45,6 +49,23 @@ namespace MonsterGame
                     break;
             }
             return rooms;
+        }
+
+        private static bool MoveRoom()
+        {
+            int input;
+            bool moved = false;
+
+            for (int i = 0; i < availableRooms.Count; i++)
+            {
+                input = Convert.ToInt32(Console.ReadLine());
+                if (input == (i + 1))
+                {
+                    Player.Room = availableRooms[i];
+                    moved = true;
+                }
+            }
+            return moved;
         }
     }
 }
