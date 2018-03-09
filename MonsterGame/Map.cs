@@ -28,7 +28,9 @@ namespace MonsterGame
             {
                 moved = MoveRoom();
             }
-            Console.WriteLine("Moved rooms");
+
+
+            
         }
 
         private static List<string> SelectRoom()
@@ -60,10 +62,11 @@ namespace MonsterGame
 
         private static bool MoveRoom()
         {
-            int input;
+            bool input;
+            int result;
             bool moved = false;
 
-            input = Convert.ToInt32(Console.ReadLine());
+            input = int.TryParse(Console.ReadLine(), out result);
 
             for (int i = 0; i < availableRooms.Count; i++)
             {
@@ -73,7 +76,23 @@ namespace MonsterGame
                     moved = true;
                 }
             }
+            
+            if (moved == false)
+            {
+                Console.WriteLine("No such room.");
+                MoveRoom();
+            }
             return moved;
+        }
+
+        private static bool Encountered()
+        {
+            Random rnd = new Random();
+            if (rnd.Next(1, 6) == 1)
+            {
+                Monster.Encounter();
+            }
+            return true;
         }
     }
 }

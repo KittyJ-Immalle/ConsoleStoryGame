@@ -48,7 +48,10 @@ namespace MonsterGame
                     Console.WriteLine("Hm?");
                 }
             }
-            
+        }
+
+        public static void Closet()
+        {
 
         }
 
