@@ -13,7 +13,7 @@ namespace MonsterGame
         public static void Navigate()
         {
             availableRooms = SelectRoom();
-            bool moved = false;
+            //bool moved = false;
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("You are in the " + Player.Room);
@@ -24,13 +24,7 @@ namespace MonsterGame
                 Console.WriteLine((i + 1) + " " + availableRooms[i]);
             }
 
-            if (moved == false)
-            {
-                moved = MoveRoom();
-            }
-
-
-            
+            MoveRoom();            
         }
 
         private static List<string> SelectRoom()
@@ -60,39 +54,29 @@ namespace MonsterGame
             return rooms;
         }
 
-        private static bool MoveRoom()
+        private static void MoveRoom()
         {
             bool input;
             int result;
-            bool moved = false;
+            //bool moved = false;
 
             input = int.TryParse(Console.ReadLine(), out result);
 
             for (int i = 0; i < availableRooms.Count; i++)
             {
-                if (input == (i + 1))
+                if (result == (i + 1))
                 {
                     Player.Room = availableRooms[i];
-                    moved = true;
+                    //moved = true;
                 }
             }
             
-            if (moved == false)
+            if (input == false)
             {
                 Console.WriteLine("No such room.");
                 MoveRoom();
             }
-            return moved;
-        }
-
-        private static bool Encountered()
-        {
-            Random rnd = new Random();
-            if (rnd.Next(1, 6) == 1)
-            {
-                Monster.Encounter();
-            }
-            return true;
+            //return input;
         }
     }
 }

@@ -10,6 +10,17 @@ namespace MonsterGame
     {
         private static string input;
 
+        public static void ChooseName()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("What should we call you?");
+            Console.ResetColor();
+            Player.Name = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Very well, " + Player.Name + "\nLet's get started");
+            Console.ResetColor();
+        }
+
         public static void Welcome()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -43,10 +54,14 @@ namespace MonsterGame
                     Console.WriteLine("Don't worry, I was able to scare it off.\nWe should go now.");
                     break;
                 }
-                else if (input != "b")
+                else if (input == "b")
+                {
+                    break;
+                } else
                 {
                     Console.WriteLine("Hm?");
                 }
+                
             }
         }
 

@@ -14,10 +14,11 @@ namespace MonsterGame
             
 
             Player.Hp = 100;
-            Player.Dmg = 10;
+            Player.DmgLowest = 5;
             Player.RunAway = 5;
             Player.Room = "Bedroom";
-            
+
+            Dialogue.ChooseName();
             
             Console.WriteLine("Press ENTER to continue dialogue. | Type 'skip' to skip the dialogue.");
             while (true)
@@ -40,6 +41,7 @@ namespace MonsterGame
             while (true)
             {
                 Map.Navigate();
+                Monster.Appear();
             }
             
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MonsterGame
 {
-    class Monster : Creature
+    class Monster : Stats
     {
         static Random rnd = new Random();
         static bool tick;
@@ -14,6 +14,10 @@ namespace MonsterGame
         static string inputString;
         static char inputChar;
         static bool res;
+
+        public static string Name { get; set; }
+        public static int Hp { get; set; }
+        public static int DmgLowest { get; set; }
 
         public enum Type
         {
@@ -25,7 +29,22 @@ namespace MonsterGame
             Monster5
         };
 
-        public static void Encounter(Type monster = Type.Default)
+        public static bool Appear()
+        {
+            Random rnd = new Random();
+            if (rnd.Next(1, 4) == 1)
+            {
+                EncounterMonster();
+            }
+            return true;
+        }
+
+        public static int Attack()
+        {
+            return rnd.Next(DmgLowest, DmgLowest + 10);
+        }
+
+        public static void EncounterMonster(Type monster = Type.Default)
         {
             if (monster == Type.Default)
             {
@@ -55,7 +74,7 @@ namespace MonsterGame
                         if (Player.RunAway > 0)
                         {
                             Console.WriteLine("You ran away.");
-                            Player.RunAway--;
+                            Player.RunAway = Player.RunAway - 1;
                             return;
                         } else
                         {
@@ -70,7 +89,8 @@ namespace MonsterGame
                 } else
                 {
                     MonsterAttack();
-                    Monster.Stats();
+                    StatsMonster();
+                    StatsPlayer();
                 }
                 tick = !tick;
             }
@@ -82,31 +102,32 @@ namespace MonsterGame
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("A monster appeared!");
 
-            if (type == Type.Monster1)
+            switch (type)
             {
-                Console.WriteLine("Monster lvl1");
-                SelectLevel(1);
+                case Type.Monster1:
+                    Monster.Name = "Monster lvl1";
+                    SelectLevel(1);
+                    break;
+                case Type.Monster2:
+                    Monster.Name = "Monster lvl2";
+                    SelectLevel(2);
+                    break;
+                case Type.Monster3:
+                    Monster.Name = "Monster lvl3";
+                    SelectLevel(3);
+                    break;
+                case Type.Monster4:
+                    Monster.Name = "Monster lvl4";
+                    SelectLevel(4);
+                    break;
+                case Type.Monster5:
+                    Monster.Name = "Monster lvl5";
+                    Console.WriteLine("Watch out! This one's dangerous!");
+                    SelectLevel(5);
+                    break;
             }
-            else if (type == Type.Monster2)
-            {
-                Console.WriteLine("Monster lvl2");
-                SelectLevel(2);
-            }
-            else if (type == Type.Monster3)
-            {
-                Console.WriteLine("Monster lvl3");
-                SelectLevel(3);
-            }
-            else if (type == Type.Monster4)
-            {
-                Console.WriteLine("Monster lvl4");
-                SelectLevel(4);
-            }
-            else if (type == Type.Monster5)
-            {
-                Console.WriteLine("Monster lvl5 (Watch out! This one's dangerous!)");
-                SelectLevel(5);
-            }
+            Console.WriteLine(Monster.Name);
+             
         }
 
         private static void SelectLevel(int level)
@@ -115,27 +136,27 @@ namespace MonsterGame
             {
                 case 1:
                     Monster.Hp = 50;
-                    Monster.Dmg = 2;
+                    Monster.DmgLowest = 2;
                     Console.WriteLine("Grr..");
                     break;
                 case 2:
                     Monster.Hp = 60;
-                    Monster.Dmg = 5;
+                    Monster.DmgLowest = 5;
                     Console.WriteLine("Hgggrr..");
                     break;
                 case 3:
                     Monster.Hp = 75;
-                    Monster.Dmg = 10;
+                    Monster.DmgLowest = 10;
                     Console.WriteLine("GGruuaagh..");
                     break;
                 case 4:
                     Monster.Hp = 100;
-                    Monster.Dmg = 15;
+                    Monster.DmgLowest = 15;
                     Console.WriteLine("Mggrruuaaghhr..");
                     break;
                 case 5:
                     Monster.Hp = 150;
-                    Monster.Dmg = 15;
+                    Monster.DmgLowest = 15;
                     Console.WriteLine("GGRRUAAGHHH..");
                     break;
             }
@@ -143,21 +164,21 @@ namespace MonsterGame
 
         private static void PlayerAttack()
         {
-            Monster.Hp -= Player.Dmg;
+            Monster.Hp -= Player.Attack();
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("You attacked and did {0} damage!", Player.Dmg);
+            Console.WriteLine("You attacked and did {0} damage!", Player.Attack());
         }
 
         private static void MonsterAttack()
         {
-            Player.Hp -= Monster.Dmg;
+            Player.Hp -= Monster.Attack();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("The monster attacked and did {0} damage!", Monster.Dmg);
+            Console.WriteLine("The monster attacked and did {0} damage!", Monster.Attack());
         }
 
         public static char GetLetter()
         {
-            int num = rnd.Next(0, 26);
+            int num = rnd.Next(0, 25);
             char let = (char)('a' + num);
             return let;
         }
