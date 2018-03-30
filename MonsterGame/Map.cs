@@ -30,27 +30,28 @@ namespace MonsterGame
         private static List<string> SelectRoom()
         {
             List<string> rooms = new List<string>();
-            switch (Player.Room)
-            {
-                case "Hallway":
-                    rooms.Add("Bedroom");
-                    rooms.Add("Bathroom");
-                    rooms.Add("Toilet");
-                    break;
-                case "Bathroom":
-                    rooms.Add("Hallway");
-                    break;
-                case "Toilet":
-                    rooms.Add("Hallway");
-                    break;
-                case "Bedroom":
-                    rooms.Add("Hallway");
-                    rooms.Add("Closet");
-                    break;
-                case "Closet":
-                    rooms.Add("Bedroom");
-                    break;
-            }
+            //switch (Player.Room)
+            //{
+            //    case "Hallway":
+            //        rooms.Add("Bedroom");
+            //        rooms.Add("Bathroom");
+            //        rooms.Add("Toilet");
+            //        break;
+            //    case "Bathroom":
+            //        rooms.Add("Hallway");
+            //        break;
+            //    case "Toilet":
+            //        rooms.Add("Hallway");
+            //        break;
+            //    case "Bedroom":
+            //        rooms.Add("Hallway");
+            //        rooms.Add("Closet");
+            //        break;
+            //    case "Closet":
+            //        rooms.Add("Bedroom");
+            //        break;
+            //}
+
             return rooms;
         }
 
