@@ -42,7 +42,7 @@ namespace MonsterGame
             
         }
 
-        static void Investigate(Player player)
+        static void Investigate(Player player, Monster monster)
         {
             string nothing = "You found nothing!";
             int find;
@@ -51,7 +51,7 @@ namespace MonsterGame
                 find = rnd.Next(1, 4);
                 if (find == 1)
                 {
-                    Monster.EncounterMonster();
+                    monster.EncounterMonster();
                 } else if (find == 2)
                 {
                     Item.Find();

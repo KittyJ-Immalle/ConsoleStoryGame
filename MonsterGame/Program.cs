@@ -11,7 +11,6 @@ namespace MonsterGame
         static void Main(string[] args)
         {
             string input;
-            
 
             Player.Hp = 100;
             Player.DmgLowest = 5;
@@ -41,7 +40,7 @@ namespace MonsterGame
             while (true)
             {
                 Map.Navigate();
-                Monster.Appear();
+                new Monster().Appear();
             }
             
         }

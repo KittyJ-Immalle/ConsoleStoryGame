@@ -23,11 +23,7 @@ namespace MonsterGame
 
         private bool IsAttached(Room room)
         {
-            if (rooms.Contains(room))
-            {
-                return true;
-            }
-            return false;
+            return rooms.Contains(room);
         }
     }
 }

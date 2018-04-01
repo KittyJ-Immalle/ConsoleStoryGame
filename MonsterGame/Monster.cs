@@ -8,16 +8,17 @@ namespace MonsterGame
 {
     class Monster : Stats
     {
-        static Random rnd = new Random();
-        static bool tick;
-        static char letter;
-        static string inputString;
-        static char inputChar;
-        static bool res;
+        private static Random rnd = new Random();
+        private Type monsterType;
+        private bool tick;
+        private char letter;
+        private string inputString;
+        private char inputChar;
+        private bool res;
 
-        public static string Name { get; set; }
-        public static int Hp { get; set; }
-        public static int DmgLowest { get; set; }
+        public string Name { get; set; }
+        public int Hp { get; set; }
+        public int DmgLowest { get; set; }
 
         public enum Type
         {
@@ -29,7 +30,12 @@ namespace MonsterGame
             Monster5
         };
 
-        public static bool Appear()
+        public Monster(Type monsterType = Type.Default)
+        {
+            this.monsterType = monsterType;
+        }
+
+        public bool Appear()
         {
             Random rnd = new Random();
             if (rnd.Next(1, 4) == 1)
@@ -39,22 +45,22 @@ namespace MonsterGame
             return true;
         }
 
-        public static int Attack()
+        public int Attack()
         {
             return rnd.Next(DmgLowest, DmgLowest + 10);
         }
 
-        public static void EncounterMonster(Type monster = Type.Default)
+        public void EncounterMonster()
         {
-            if (monster == Type.Default)
+            if (monsterType == Type.Default)
             {
                 SelectMonster();
             } else
             {
-                SelectMonster(monster);
+                SelectMonster(monsterType);
             }
             
-            while (Monster.Hp >= 0)
+            while (Hp >= 0)
             {
 
                 if (!tick)
@@ -89,14 +95,14 @@ namespace MonsterGame
                 } else
                 {
                     MonsterAttack();
-                    StatsMonster();
+                    StatsMonster(this);
                     StatsPlayer();
                 }
                 tick = !tick;
             }
         }
 
-        private static void SelectMonster(Type monster = Type.Default)
+        private void SelectMonster(Type monster = Type.Default)
         {
             Type type = (Type)rnd.Next(1, 5);
             Console.ForegroundColor = ConsoleColor.Red;
@@ -105,78 +111,78 @@ namespace MonsterGame
             switch (type)
             {
                 case Type.Monster1:
-                    Monster.Name = "Monster lvl1";
+                    Name = "Monster lvl1";
                     SelectLevel(1);
                     break;
                 case Type.Monster2:
-                    Monster.Name = "Monster lvl2";
+                    Name = "Monster lvl2";
                     SelectLevel(2);
                     break;
                 case Type.Monster3:
-                    Monster.Name = "Monster lvl3";
+                    Name = "Monster lvl3";
                     SelectLevel(3);
                     break;
                 case Type.Monster4:
-                    Monster.Name = "Monster lvl4";
+                    Name = "Monster lvl4";
                     SelectLevel(4);
                     break;
                 case Type.Monster5:
-                    Monster.Name = "Monster lvl5";
+                    Name = "Monster lvl5";
                     Console.WriteLine("Watch out! This one's dangerous!");
                     SelectLevel(5);
                     break;
             }
-            Console.WriteLine(Monster.Name);
+            Console.WriteLine(Name);
              
         }
 
-        private static void SelectLevel(int level)
+        private void SelectLevel(int level)
         {
             switch (level)
             {
                 case 1:
-                    Monster.Hp = 50;
-                    Monster.DmgLowest = 2;
+                    Hp = 50;
+                    DmgLowest = 2;
                     Console.WriteLine("Grr..");
                     break;
                 case 2:
-                    Monster.Hp = 60;
-                    Monster.DmgLowest = 5;
+                    Hp = 60;
+                    DmgLowest = 5;
                     Console.WriteLine("Hgggrr..");
                     break;
                 case 3:
-                    Monster.Hp = 75;
-                    Monster.DmgLowest = 10;
+                    Hp = 75;
+                    DmgLowest = 10;
                     Console.WriteLine("GGruuaagh..");
                     break;
                 case 4:
-                    Monster.Hp = 100;
-                    Monster.DmgLowest = 15;
+                    Hp = 100;
+                    DmgLowest = 15;
                     Console.WriteLine("Mggrruuaaghhr..");
                     break;
                 case 5:
-                    Monster.Hp = 150;
-                    Monster.DmgLowest = 15;
+                    Hp = 150;
+                    DmgLowest = 15;
                     Console.WriteLine("GGRRUAAGHHH..");
                     break;
             }
         }
 
-        private static void PlayerAttack()
+        private void PlayerAttack()
         {
-            Monster.Hp -= Player.Attack();
+            Hp -= Player.Attack();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("You attacked and did {0} damage!", Player.Attack());
         }
 
-        private static void MonsterAttack()
+        private void MonsterAttack()
         {
-            Player.Hp -= Monster.Attack();
+            Player.Hp -= Attack();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("The monster attacked and did {0} damage!", Monster.Attack());
+            Console.WriteLine("The monster attacked and did {0} damage!", Attack());
         }
 
-        public static char GetLetter()
+        public char GetLetter()
         {
             int num = rnd.Next(0, 25);
             char let = (char)('a' + num);
