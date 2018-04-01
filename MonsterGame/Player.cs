@@ -12,7 +12,7 @@ namespace MonsterGame
         public static string Name { get; set; }
         public static int Hp { get; set; }
         public static int DmgLowest { get; set; }
-        public static string Room { get; set; }
+        public static Room CurrentRoom { get; set; }
         public static int RunAway { get; set; }
 
         public static int Attack()

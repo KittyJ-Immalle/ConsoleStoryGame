@@ -8,13 +8,18 @@ namespace MonsterGame
 {
     class Room
     {
-        List<Room> rooms = new List<Room>();
+        public List<Room> Rooms { get; }  = new List<Room>();
 
-        public string Name { get; } = Player.Room;
+        public string Name { get; }
+
+        public Room(string name)
+        {
+            Name = name;
+        }
 
         public void Attach(Room room)
         {
-            rooms.Add(room);
+            Rooms.Add(room);
             if (!room.IsAttached(this))
             {
                 room.Attach(this);
@@ -23,7 +28,7 @@ namespace MonsterGame
 
         private bool IsAttached(Room room)
         {
-            return rooms.Contains(room);
+            return Rooms.Contains(room);
         }
     }
 }

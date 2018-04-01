@@ -8,28 +8,45 @@ namespace MonsterGame
 {
     class Map
     {
-        static List<string> availableRooms;
+        private static List<Room> attachedRooms;
+        public static Room Bedroom { get; } = new Room("Bedroom");
+        private static Room hallway = new Room("Hallway");
+        private static Room bathroom = new Room("Bathroom");
+        private static Room toilet = new Room("Toilet");
+        private static Room closet = new Room("Closet");
 
         public static void Navigate()
         {
-            availableRooms = SelectRoom();
+            attachedRooms = SelectRooms();
             //bool moved = false;
 
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("You are in the " + Player.Room);
-            Console.WriteLine("Where do you want to go to?");
+            Console.WriteLine("You are in the " + Player.CurrentRoom.Name);
+            Console.WriteLine("Where do you want to go to? (Choose a number)");
 
-            for (int i = 0; i < availableRooms.Count; i++)
+            for (int i = 0; i < attachedRooms.Count; i++)
             {
-                Console.WriteLine((i + 1) + " " + availableRooms[i]);
+                Console.WriteLine((i + 1) + " " + attachedRooms[i].Name);
             }
 
             MoveRoom();            
         }
 
-        private static List<string> SelectRoom()
+        private static List<Room> SelectRooms()
         {
-            List<string> rooms = new List<string>();
+            Room playerRoom = Player.CurrentRoom;
+
+            hallway.Attach(Bedroom);
+            hallway.Attach(bathroom);
+            hallway.Attach(toilet);
+            bathroom.Attach(hallway);
+            toilet.Attach(hallway);
+            Bedroom.Attach(hallway);
+            Bedroom.Attach(closet);
+            closet.Attach(Bedroom);
+
+            //List<string> rooms = new List<string>();
+
             //switch (Player.Room)
             //{
             //    case "Hallway":
@@ -52,7 +69,7 @@ namespace MonsterGame
             //        break;
             //}
 
-            return rooms;
+            return playerRoom.Rooms;
         }
 
         private static void MoveRoom()
@@ -63,14 +80,18 @@ namespace MonsterGame
 
             input = int.TryParse(Console.ReadLine(), out result);
 
-            for (int i = 0; i < availableRooms.Count; i++)
+            foreach (Room room in attachedRooms)
             {
-                if (result == (i + 1))
-                {
-                    Player.Room = availableRooms[i];
-                    //moved = true;
-                }
+                Player.CurrentRoom = room;
             }
+            //for (int i = 0; i < attachedRooms.Count; i++)
+            //{
+            //    if (result == (i + 1))
+            //    {
+            //        Player.Room = attachedRooms[i];
+            //        //moved = true;
+            //    }
+            //}
             
             if (input == false)
             {

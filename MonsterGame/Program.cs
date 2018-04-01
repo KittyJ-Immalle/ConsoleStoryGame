@@ -15,7 +15,7 @@ namespace MonsterGame
             Player.Hp = 100;
             Player.DmgLowest = 5;
             Player.RunAway = 5;
-            Player.Room = "Bedroom";
+            Player.CurrentRoom = Map.Bedroom;
 
             Dialogue.ChooseName();
             
