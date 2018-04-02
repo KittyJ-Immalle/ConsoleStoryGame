@@ -9,16 +9,23 @@ namespace MonsterGame
     class Map
     {
         private static List<Room> attachedRooms;
-        public static Room Bedroom { get; } = new Room("Bedroom");
+        public static Room Bedroom = new Room("Bedroom");
         private static Room hallway = new Room("Hallway");
         private static Room bathroom = new Room("Bathroom");
         private static Room toilet = new Room("Toilet");
         private static Room closet = new Room("Closet");
 
+        public static void MapInit()
+        {
+            hallway.Attach(Bedroom);
+            hallway.Attach(bathroom);
+            hallway.Attach(toilet);
+            Bedroom.Attach(closet);
+        }
+
         public static void Navigate()
         {
             attachedRooms = SelectRooms();
-            //bool moved = false;
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("You are in the " + Player.CurrentRoom.Name);
@@ -36,69 +43,30 @@ namespace MonsterGame
         {
             Room playerRoom = Player.CurrentRoom;
 
-            hallway.Attach(Bedroom);
-            hallway.Attach(bathroom);
-            hallway.Attach(toilet);
-            bathroom.Attach(hallway);
-            toilet.Attach(hallway);
-            Bedroom.Attach(hallway);
-            Bedroom.Attach(closet);
-            closet.Attach(Bedroom);
-
-            //List<string> rooms = new List<string>();
-
-            //switch (Player.Room)
-            //{
-            //    case "Hallway":
-            //        rooms.Add("Bedroom");
-            //        rooms.Add("Bathroom");
-            //        rooms.Add("Toilet");
-            //        break;
-            //    case "Bathroom":
-            //        rooms.Add("Hallway");
-            //        break;
-            //    case "Toilet":
-            //        rooms.Add("Hallway");
-            //        break;
-            //    case "Bedroom":
-            //        rooms.Add("Hallway");
-            //        rooms.Add("Closet");
-            //        break;
-            //    case "Closet":
-            //        rooms.Add("Bedroom");
-            //        break;
-            //}
-
             return playerRoom.Rooms;
         }
 
         private static void MoveRoom()
         {
-            bool input;
+            bool success;
             int result;
-            //bool moved = false;
 
-            input = int.TryParse(Console.ReadLine(), out result);
+            success = int.TryParse(Console.ReadLine(), out result);
 
-            foreach (Room room in attachedRooms)
+            for (int i = 0; i < attachedRooms.Count; i++)
             {
-                Player.CurrentRoom = room;
+                if (result == (i + 1))
+                {
+                    Player.CurrentRoom = attachedRooms[i];
+                    
+                }
             }
-            //for (int i = 0; i < attachedRooms.Count; i++)
-            //{
-            //    if (result == (i + 1))
-            //    {
-            //        Player.Room = attachedRooms[i];
-            //        //moved = true;
-            //    }
-            //}
-            
-            if (input == false)
+
+            if (success == false)
             {
                 Console.WriteLine("No such room.");
                 MoveRoom();
             }
-            //return input;
         }
     }
 }

@@ -18,6 +18,8 @@ namespace MonsterGame
             Player.CurrentRoom = Map.Bedroom;
 
             Dialogue.ChooseName();
+
+            Map.MapInit();
             
             Console.WriteLine("Press ENTER to continue dialogue. | Type 'skip' to skip the dialogue.");
             while (true)
