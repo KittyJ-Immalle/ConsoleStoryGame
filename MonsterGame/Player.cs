@@ -25,5 +25,11 @@ namespace MonsterGame
             Console.WriteLine("Health regenerated");
             Player.Hp = 100;
         }
+
+        public static void EndLife()
+        {
+            Dialogue.EndingDialogue();
+            Environment.Exit(0);
+        }
     }
 }

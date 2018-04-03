@@ -62,7 +62,6 @@ namespace MonsterGame
             
             while (Hp >= 0)
             {
-
                 if (!tick)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -180,6 +179,22 @@ namespace MonsterGame
             Player.Hp -= Attack();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("The monster attacked and did {0} damage!", Attack());
+
+            if (Player.Hp <= 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine(new string('-', 20));
+                Console.WriteLine(new string('-', 20));
+                Console.WriteLine("-----!YOU DIED!-----");
+                Console.WriteLine(new string('-', 20));
+                Console.WriteLine(new string('-', 20));
+                Player.EndLife();
+            }
+            else if (Player.Hp <= 20)
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("[Health low]");
+            }
         }
 
         public char GetLetter()
