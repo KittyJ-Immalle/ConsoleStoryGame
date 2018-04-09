@@ -20,7 +20,7 @@ namespace MonsterGame
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(new string('-', 20));
-            Console.WriteLine(Player.Name + ":\nHp: {0}\nDmg: {1}", Player.Hp, Player.DmgLowest + " - " + (Player.DmgLowest + 10));
+            Console.WriteLine(Player.Name + ":\nHp: {0}\nDmg: {1}", Player.CurrentHp, Player.DmgLowest + " - " + (Player.DmgLowest + 10));
             Console.WriteLine(new string('-', 20));
         }
         

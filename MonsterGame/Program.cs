@@ -12,7 +12,8 @@ namespace MonsterGame
         {
             string input;
 
-            Player.Hp = 100;
+            Player.MaxHp = 100;
+            Player.CurrentHp = Player.MaxHp;
             Player.DmgLowest = 5;
             Player.RunAway = 5;
             Player.CurrentRoom = Map.Bedroom;

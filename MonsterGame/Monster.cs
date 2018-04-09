@@ -80,6 +80,7 @@ namespace MonsterGame
                         {
                             Console.WriteLine("You ran away.");
                             Player.RunAway = Player.RunAway - 1;
+                            Player.ResetHealth();
                             return;
                         } else
                         {
@@ -99,11 +100,16 @@ namespace MonsterGame
                 }
                 tick = !tick;
             }
+            Player.IncreaseStrength(1);
+            if (Player.CurrentHp != Player.MaxHp)
+            {
+                Player.ResetHealth();
+            }
         }
 
         private void SelectMonster(Type monster = Type.Default)
         {
-            Type type = (Type)rnd.Next(1, 5);
+            Type type = (Type)rnd.Next(1, 6);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("A monster appeared!");
 
@@ -127,7 +133,9 @@ namespace MonsterGame
                     break;
                 case Type.Monster5:
                     Name = "Monster lvl5";
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("Watch out! This one's dangerous!");
+                    Console.ForegroundColor = ConsoleColor.Red;
                     SelectLevel(5);
                     break;
             }
@@ -176,11 +184,11 @@ namespace MonsterGame
 
         private void MonsterAttack()
         {
-            Player.Hp -= Attack();
+            Player.CurrentHp -= Attack();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("The monster attacked and did {0} damage!", Attack());
 
-            if (Player.Hp <= 0)
+            if (Player.CurrentHp <= 0)
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(new string('-', 20));
@@ -190,7 +198,7 @@ namespace MonsterGame
                 Console.WriteLine(new string('-', 20));
                 Player.EndLife();
             }
-            else if (Player.Hp <= 20)
+            else if (Player.CurrentHp <= 20)
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("[Health low]");
