@@ -123,6 +123,7 @@ namespace MonsterGame
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
+            Enter();
         }
 
         public static void Enter()

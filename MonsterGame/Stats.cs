@@ -13,14 +13,14 @@ namespace MonsterGame
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(new string('-', 20));
-            Console.WriteLine(monster.Name + ":\nHp: {0}\nDmg: {1}", monster.Hp, monster.DmgLowest + " - " + monster.DmgLowest + 10);
+            Console.WriteLine(monster.Name + ":\nHp: {0}\nDmg: {1}", monster.Hp, monster.DmgLowest + " - " + (monster.DmgLowest + 10));
             Console.WriteLine(new string('-', 20));
         }
         public static void StatsPlayer()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(new string('-', 20));
-            Console.WriteLine(Player.Name + ":\nHp: {0}\nDmg: {1}", Player.Hp, Player.DmgLowest + " - " + Player.DmgLowest + 10);
+            Console.WriteLine(Player.Name + ":\nHp: {0}\nDmg: {1}", Player.Hp, Player.DmgLowest + " - " + (Player.DmgLowest + 10));
             Console.WriteLine(new string('-', 20));
         }
         

@@ -9,7 +9,7 @@ namespace MonsterGame
     class Map
     {
         private static List<Room> attachedRooms;
-        public static Room Bedroom = new Room("Bedroom");
+        public static Room Bedroom { get; } = new Room("Bedroom");
         private static Room hallway = new Room("Hallway");
         private static Room bathroom = new Room("Bathroom");
         private static Room toilet = new Room("Toilet");
