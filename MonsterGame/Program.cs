@@ -18,6 +18,7 @@ namespace MonsterGame
             Player.RunAway = 5;
             Player.CurrentRoom = Map.Bedroom;
 
+            Dialogue.BeforeStart();
             Dialogue.ChooseName();
 
             Map.MapInit();

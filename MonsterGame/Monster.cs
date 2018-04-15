@@ -52,6 +52,7 @@ namespace MonsterGame
 
         public void EncounterMonster()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             if (monsterType == Type.Default)
             {
                 SelectMonster();
@@ -117,6 +118,7 @@ namespace MonsterGame
             {
                 case Type.Monster1:
                     Name = "Monster lvl1";
+                    Picture.PrintMonsterLvl1Logo();
                     SelectLevel(1);
                     break;
                 case Type.Monster2:
